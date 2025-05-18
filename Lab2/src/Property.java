@@ -8,7 +8,7 @@ public class Property {
     private String Property;
 
     public Property() {
-
+        
     }
 
     public Property(int propertyID, String description, String property) {
