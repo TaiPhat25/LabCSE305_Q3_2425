@@ -14,6 +14,7 @@ class Message {
         this.recipient = recipient;
     }
 
+    // Getters for message properties
     public String getContent() {
         return content;
     }
@@ -39,7 +40,7 @@ class Message {
         printSummary();
         System.out.println("Content Length: " + content.length());
         System.out.println("Sender Uppercase: " + sender.toUpperCase());
-        System.out.println("Recipient Lowercase: " + recipient.toLowerCase());
+        System.out.println("Recipient Lowercase: " +recipient.toLowerCase());
     }
 }
 
@@ -63,31 +64,35 @@ class MessagingService {
         for (String recipient : inbox.keySet()) {
             List<Message> messages = inbox.get(recipient);
             for (Message message : messages) {
-                // System.out.println("Recipient: " + message.getRecipient());
+                // System.out.println("Recipient: " +message.getRecipient());
                 // System.out.println("Sender: " + message.getSender());
                 // System.out.println("Content: " + message.getContent());
                 message.printSummary();
+                System.out.println("------------------------------------------");
             }
         }
     }
 }
 
-public class Messenger {
+public class CodeSmell1 {
     public static void main(String[] args) {
         MessagingService messagingService = new MessagingService();
-
-        messagingService.sendMessage("Hello, tenant!", "Property Manager", "Tenant A");
-        messagingService.sendMessage("Important notice: Rent due next week.", "Property Owner", "Tenant A");
+        // sending messages
+        messagingService.sendMessage("Hello, tenant!", "PropertyManager", "Tenant A");
+        messagingService.sendMessage("Important notice: Rent due nextweek.", "Property Owner", "Tenant A");
         messagingService.sendMessage("Maintenance request received.", "Tenant A", "Property Manager");
-
+        // retrieving messages for a recipient
+        System.out.println("1------------------------------------------");
         List<Message> tenantAMessages = messagingService.getMessagesForRecipient("Tenant A");
         for (Message message : tenantAMessages) {
-            System.out.println("From: " + message.getSender() + ", Content: " + message.getContent());
+            System.out.println("From: " + message.getSender() + ",Content: " + message.getContent());
         }
+        // Calling the new method
+        System.out.println("2------------------------------------------");
 
         Message exampleMessage = new Message("Test", "Sender", "Recipient");
         exampleMessage.printDetails();
-
+        System.out.println("3------------------------------------------");
         messagingService.printAllMessages();
     }
 }
